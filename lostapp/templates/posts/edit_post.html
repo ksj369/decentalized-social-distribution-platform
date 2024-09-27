@@ -1,0 +1,31 @@
+<!-- lost/lostapp/templates/authors/base.html -->
+{% extends "base.html" %}
+{% load static %}
+{% block script %}
+    <script src="{% static 'lostapp/js/edit_post.js' %}"></script>
+{% endblock %}
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="column" id="profile">
+    <h2 class="title">Edit Post:</h2>
+    <label for="title">Title:</label>
+    <label>
+        <input class="input is-primary" type="text" name="title" id="edit-title" required>
+    </label>
+    <br></br>
+    <label for="content">Content:</label>
+    <label>
+        <textarea class="textarea is-primary" rows="10" name="content" id="edit-content"></textarea>
+    </label>
+    <br></br>
+    <label for="image_file">New Image: </label>
+    <input type="file" id="image_file" name="image">
+    <br>
+    <button class="button is-primary is-rounded is-outlined is-pulled-right" id="edit-button">
+        <i class="fas fa-edit"></i> Edit Post
+    </button>
+    </div>
+    </div>
+{% endblock %}

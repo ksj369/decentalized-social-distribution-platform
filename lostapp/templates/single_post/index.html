@@ -1,0 +1,39 @@
+<!-- lost/lostapp/templates/authors/base.html -->
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'lostapp/js/utility.js' %}"></script>
+    <script src="{% static 'lostapp/js/single_post.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1 id="post_title" style="font-size: large;"></h1>
+        <span id="viewing_author" hidden>{{ user.author.id }}</span>
+        <br>
+        <p id="content"></p>
+        <button id = "edit_post" hidden>Edit</button>
+        <button id = "delete_post" hidden>Delete</button>
+        <button id= "share_post_with_followers" hidden>Share</button>
+        <button id = "image_link" hidden>Copy Image link</button>
+        <br>
+        <br>
+        <button id = "like_post" hidden>Like Post</button>
+        <span id = "post_like_count"></span>
+
+        <br>
+        <br>
+        <div id="comments_section">
+            <h2 style="font-weight: bold;">Comments</h2>
+            <h2>Add a Comment</h2>
+            <label>
+                <input type="text" id="comment_content" placeholder="Type your comment here" style="width: 500px;">
+            </label>
+            <button id="submit_comment" type="submit">Submit Comment</button>
+            <br>
+        </div>
+    </section>
+{% endblock %}

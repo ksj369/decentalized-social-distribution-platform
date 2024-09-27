@@ -1,0 +1,24 @@
+<!-- lost/lostapp/templates/authors/base.html -->
+{% extends "base.html" %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+    <div class="column" id="profile">
+    <h2 class="subtitle">Edit Profile:</h2>
+    <form method="post" action="{% url 'lostapp:profile_change' author_id=author.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="display_name">Display name:</label>
+        <input class="input is-primary" placeholder="Leave field empty if you don't want to change it" type="text" name="display_name">
+        <br></br>
+		<label for="github">Github link:</label>
+        <input class="input is-primary" placeholder="Leave field empty if you don't want to change it" type="text" name="github">
+        <br></br>
+		<label for="profile_image">Profile image:</label>
+        <input type="file" id="profile_image" name="profile_image">
+		<br>
+		<br>
+        <button class="button is-primary is-outlined" type="submit">Submit changes</button>
+    </form>
+    </div>
+{% endblock %}

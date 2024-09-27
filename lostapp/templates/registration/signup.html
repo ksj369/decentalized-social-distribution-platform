@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+
+    <!-- Display error message if it exists -->
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <h2>Author Signup</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <label for="display_name">Display Name:</label><br>
+        <input type="text" id="display_name" name="display_name"><br><br>
+        
+        <label for="github">GitHub:</label><br>
+        <input type="text" id="github" name="github"><br><br>
+        
+        <label for="profile_image">Profile Image:</label><br>
+        <input type="file" id="profile_image" name="profile_image"><br><br>
+        
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+</html>
+{% endblock content %}

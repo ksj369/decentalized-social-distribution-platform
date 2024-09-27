@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block script %}
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{% static 'lostapp/js/feed.js' %}"></script>
+    <script src="{% static 'lostapp/js/utility.js' %}"></script>
+    <meta name="author-id" content="{{ user.author.id }}">
+{% endblock %}
+
+{% block title %}
+    <h1 class="title">Home</h1>
+{% endblock %}
+
+{% block content %}
+    <div id="user" style="display: none;" data-logged-in-author-id="{{ user.author.id }}"></div>
+    {% if user.is_authenticated and user.author.is_approved %}
+        <div class="columns">
+            <div class="column is-4">
+                <aside class="menu">
+                    <p class="menu-label">Navigation</p>
+                    <ul class="menu-list">
+                        <li><a href="{% url 'lostapp:author' author_id=user.author.id %}">Profile</a></li>
+                        <li><a href="{% url 'lostapp:author_list' %}">Authors</a></li>
+                        <li><a href="{% url 'lostapp:post_create' author_id=user.author.id %}">Create Post</a></li>
+                        <li>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="button is-danger">Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="column">
+                <h2 class="subtitle">{{ user.author.display_name }}'s Stream</h2>
+                <div id="main-stream"></div>
+                <ul class="post-list"></ul>
+                <style>
+                    .author-name {
+                        font-size: 1.4em;
+                        font-weight: bold;
+                    }
+
+                    .subtitle {
+                        font-size: 1.6em;
+                        font-weight: bold;
+                        margin-top: 1em;
+                    }
+
+                    .post-title {
+                        font-size: 0.85em;
+                        font-weight: bold;
+                    }
+
+                    .post-content {
+                        padding: 10px;
+                    }
+
+                    .post-image {
+                        padding: 5px;
+                        max-width: 500px;
+                        max-height: 400px;
+                    }
+
+                    .menu-label {
+                        font-size: 1.2em;
+                        font-weight: bold;
+                        margin-top: 1.5em;
+                    }
+                </style>
+                </ul>
+            </div>
+            <!-- <div class="column">
+                <h2 class="subtitle">Follow requests</h2>
+                <ul>
+                {% for follow_request in user.author.pending_follow_requests.all %}
+                    <li>Follow request from {{ follow_request.user}}</li>
+                    <button onclick="accept_request('{{ user.author.id }}', '{{ follow_request.id}}')"
+                    data-author-id="{{ user.author.id }}"
+                    class="button is-success request-button"
+                    data-action="accept">
+                    
+                    Accept</button>
+
+                    <button onclick="decline_request('{{ user.author.id }}', '{{ follow_request.id}}')"
+                    data-author-id="{{ user.author.id }}"
+                    class="button is-danger request-button"
+                    data-action="decline">
+                        Decline</button>
+                {% empty %}
+                    <li>No follow requests.</li>
+                {% endfor %}
+                </ul>
+            </div> -->
+
+            <div class="column">
+                <h2 class="subtitle">Follow requests</h2>
+                <ul id="follow-request-list">
+                    <!-- List will be populated dynamically by JavaScript -->
+                </ul>
+            </div>
+            
+
+
+        </div>
+
+    {% elif user.is_authenticated and not user.author.is_approved %}
+        <p>Your account is pending approval by the server admin. Please wait for approval.</p>
+        <form action="{% url 'logout' %}" method="post">
+            <ul class="post-list"></ul>
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+    {% else %}
+        <div class="column">
+                    <div class="column is-4">
+                        <div class="login-button-container">
+                            <a href="{% url 'login' %}" class="button is-primary">Log In</a>
+                            <a href="{% url 'lostapp:signup' %}" class="button is-primary">Sign Up</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <h2 class="subtitle">Public Stream</h2>
+                <div id="main-stream"></div>
+                <ul class="post-list"></ul>
+        </div>
+    {% endif %}
+{% endblock %}

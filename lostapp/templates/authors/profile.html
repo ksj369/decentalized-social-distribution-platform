@@ -1,0 +1,119 @@
+<!-- lost/lostapp/templates/authors/base.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block script %}
+    <script>
+        userId = '{{ user.author.id }}';
+        authorId = '{{ author.id }}';
+        userUrl = "{{ user.author.host }}api/authors/{{ user.author.id }}";
+    </script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="{% static 'lostapp/js/utility.js' %}"></script>
+    <script src="{% static 'lostapp/js/profile.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta name="author-id" content="{{ author.id }}">
+    <meta name="author-url" content="{{ author.host }}api/authors/{{ author.id }}">
+{% endblock %}
+
+{% block content %}
+    <div id="user" style="display: none;" data-logged-in-author-id="{{ user.author.id }}"></div>
+    <div class="column" id="posts">
+        <div class="column" id="profile"></div>
+    </div>
+
+    <div id="follow">
+        <div></div>
+        <div>
+            <br>
+            <div class="block">
+                <a href="{% url 'lostapp:author_list' %}">
+                    <button class="button is-dark is-outlined is-fullwidth">
+                        All Profiles
+                    </button>
+                </a>
+            </div>
+            <!-- <button onclick="follow(authorId,userUrl)"
+                    class="button
+            is-success follow-button"
+                    data-action="follow"
+                    data-author-id=
+                            "{{ author.id }}">
+                Follow
+            </button>
+            <button onclick="unfollow(authorId,userUrl)"
+                    class="button is-danger follow-button" data-action="unfollow" data-author-id=
+                            "{{ author.id }}"
+                    style="display: none;">
+                Unfollow
+            </button> -->
+
+            <button onclick="follow(authorId, userUrl)"
+            class="button is-success follow-button"
+            data-action="follow"
+            data-author-id="{{ author.id }}">
+        Follow
+    </button>
+    <button onclick="unfollow(authorId, userUrl)"
+            class="button is-danger follow-button"
+            data-action="unfollow"
+            data-author-id="{{ author.id }}"
+            style="display: none;">
+        Unfollow
+    </button>
+    <button onclick="sendPendingRequest(authorId, userUrl)"
+            class="button is-warning pending-button"
+            data-action="pending"
+            data-author-id="{{ author.id }}"
+            style="display: none;">
+        Pending
+    </button>
+
+            <br>
+        </div>
+    </div>
+
+    <div class="block">
+        <h3 class="title is-4">
+            {{ author.display_name }} follows:
+        </h3>
+        <div class="content">
+            <ul>
+                {% for following in author.follows.all %}
+                    <li>
+                        <a href="{% url 'lostapp:author' author_id=following.id %}">
+                            {{ following.display_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="block">
+        <h3 class="title is-4">
+            {{ author.display_name }} is followed by:
+        </h3>
+        <div class="content">
+            <ul>
+                {% for follower in author.followed_by.all %}
+                    <li>
+                        <a href="{% url 'lostapp:author' author_id=follower.id %}">
+                            {{ follower.display_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <style>
+        .profile_image img {
+            width         : 10em;
+            height        : 10em;
+            object-fit    : cover;
+            border-radius : 50%;
+            margin-bottom : 1em;
+        }
+    </style>
+{% endblock %}

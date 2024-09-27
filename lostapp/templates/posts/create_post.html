@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Create Post
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'lostapp/js/utility.js' %}"></script>
+<script src="{% static 'lostapp/js/posts.js' %}"></script>
+{% endblock %}
+
+{% block content %}>
+<div class="container">
+    <column id="create_post">
+        <br>
+        <h2 class="title">New Post:</h2>
+        <label for="content-format">Content format:</label>
+        <div class="select is-primary is-fullwidth">
+            <select id="content-format" name="content-format">
+                <option value="text/plain">Plain Text</option>
+                <option value="text/markdown">Markdown</option>
+                <option value="image/png">Image</option>
+            </select>
+        </div>
+        <br>
+        <label for="visibility">Visibility:</label>
+        <div class="select is-primary is-fullwidth">
+            <select id="visibility" name="visibility">
+                <option value="PUBLIC">Public</option>
+                <option value="FRIENDS">Friends Only</option>
+                <option value="UNLISTED">Unlisted</option>
+            </select>
+        </div>
+        <br>
+        <label for="title">Title:</label>
+        <label>
+            <input class="input is-primary" type="text" name="title" placeholder="Enter Title Here" id="title" required>
+        </label>
+        <br>
+        <label for="description">Description:</label>
+        <label>
+            <input class="input is-primary" name="description" placeholder="e.g. This post is a cool post"
+                id="description">
+        </label>
+        <br>
+        <label id="content-title" for="content">Content:</label>
+        <label>
+            <textarea class="textarea is-primary" rows="10" name="content" placeholder="e.g. Cool content"
+                id="content"></textarea>
+        </label>
+        <br>
+        <div class="file is-boxed is-centered" style="display: none;">
+            <label class="file-label">
+                <input class="file-input" type="file" id="image_file" name="image" onchange="showFileName(this)">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fa fa-image"></i>
+                    </span>
+                    <span class="file-label">
+                        Choose an Image...
+                    </span>
+                    <span class="file-name">
+                        No file chosen
+                    </span>
+                </span>
+            </label>
+        </div>
+        <br>
+        <button class="button is-primary is-centered" type="submit" onclick="createPost()">Create Post</button>
+    </column>
+</div>
+{% endblock %}

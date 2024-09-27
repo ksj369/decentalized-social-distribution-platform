@@ -1,0 +1,1179 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/authors/:
+    get:
+      operationId: authors_list
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+              examples:
+                ? ''
+                : value:
+                  - type: authors
+                    items:
+                    - type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+          description: ''
+  /api/authors/{author_id}/:
+    get:
+      operationId: authors_retrieve
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+              examples:
+                ? ''
+                : value:
+                    type: author
+                    id: string
+                    url: string
+                    host: string
+                    displayName: string
+                    github: string
+                    profileImage: string
+          description: ''
+    put:
+      operationId: authors_update
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+            examples:
+              ? ''
+              : value:
+                  type: author
+                  id: string
+                  url: string
+                  host: string
+                  displayName: string
+                  github: string
+                  profileImage: string
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+              examples:
+                ? ''
+                : value:
+                    type: author
+                    id: string
+                    url: string
+                    host: string
+                    displayName: string
+                    github: string
+                    profileImage: string
+          description: ''
+  /api/authors/{author_id}/followers/:
+    get:
+      operationId: authors_followers_retrieve
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+              examples:
+                ? ''
+                : value:
+                    type: followers
+                    items:
+                    - type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+          description: ''
+  /api/authors/{author_id}/followers/{follower_id}:
+    get:
+      operationId: authors_followers_retrieve_2
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: follower_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Follow'
+              examples:
+                ? ''
+                : value:
+                    type: Follow
+                    summary: string
+                    actor:
+                      type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+                    object:
+                      type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+          description: ''
+        '404':
+          description: No response body
+    put:
+      operationId: authors_followers_update
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: follower_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+    delete:
+      operationId: authors_followers_destroy
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: follower_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Local
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/authors/{author_id}/inbox/:
+    get:
+      operationId: authors_inbox_retrieve
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: authors_inbox_create
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+    delete:
+      operationId: authors_inbox_destroy
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/authors/{author_id}/liked/:
+    get:
+      operationId: authors_liked_list
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+              examples:
+                ? ''
+                : value:
+                  - type: liked
+                    items:
+                    - summary: string
+                      type: Like
+                      author:
+                        type: author
+                        id: string
+                        url: string
+                        host: string
+                        displayName: string
+                        github: string
+                        profileImage: string
+                      object: string
+          description: ''
+  /api/authors/{author_id}/posts/:
+    get:
+      operationId: authors_posts_list
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              examples:
+                ? ''
+                : value:
+                  - - type: post
+                      title: string
+                      id: string
+                      source: string
+                      origin: string
+                      description: string
+                      contentType: string
+                      content: string
+                      author:
+                        type: author
+                        id: string
+                        url: string
+                        host: string
+                        displayName: string
+                        github: string
+                        profileImage: string
+                      count: integer
+                      comments: string
+                      published: datetime
+                      visibility: string
+          description: ''
+    post:
+      operationId: authors_posts_create
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+            examples:
+              ? ''
+              : value:
+                  type: post
+                  title: string
+                  id: string
+                  source: string
+                  origin: string
+                  description: string
+                  contentType: string
+                  content: string
+                  author:
+                    type: author
+                    id: string
+                    url: string
+                    host: string
+                    displayName: string
+                    github: string
+                    profileImage: string
+                  count: integer
+                  comments: string
+                  published: datetime
+                  visibility: string
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+              examples:
+                ? ''
+                : value:
+                    type: post
+                    title: string
+                    id: string
+                    source: string
+                    origin: string
+                    description: string
+                    contentType: string
+                    content: string
+                    author:
+                      type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+                    count: integer
+                    comments: string
+                    published: datetime
+                    visibility: string
+          description: ''
+  /api/authors/{author_id}/posts/{post_id}/:
+    get:
+      operationId: authors_posts_retrieve
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+              examples:
+                ? ''
+                : value:
+                    type: post
+                    title: string
+                    id: string
+                    source: string
+                    origin: string
+                    description: string
+                    contentType: string
+                    content: string
+                    author:
+                      type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+                    count: integer
+                    comments: string
+                    published: datetime
+                    visibility: string
+          description: ''
+    put:
+      operationId: authors_posts_update
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+            examples:
+              ? ''
+              : value:
+                  type: post
+                  title: string
+                  id: string
+                  source: string
+                  origin: string
+                  description: string
+                  contentType: string
+                  content: string
+                  author:
+                    type: author
+                    id: string
+                    url: string
+                    host: string
+                    displayName: string
+                    github: string
+                    profileImage: string
+                  count: integer
+                  comments: string
+                  published: datetime
+                  visibility: string
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '303':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+    delete:
+      operationId: authors_posts_destroy
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/authors/{author_id}/posts/{post_id}/comments/:
+    get:
+      operationId: authors_posts_comments_list
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+              examples:
+                ? ''
+                : value:
+                  - type: comments
+                    page: integer
+                    size: integer
+                    post: string
+                    id: string
+                    comments:
+                    - type: comment
+                      author:
+                        type: author
+                        id: string
+                        url: string
+                        host: string
+                        displayName: string
+                        github: string
+                        profileImage: string
+                      comment: string
+                      contentType: text/markdown
+                      published: datetime
+                      id: string
+          description: ''
+    post:
+      operationId: authors_posts_comments_create
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+            examples:
+              ? ''
+              : value:
+                  type: comment
+                  author:
+                    type: author
+                    id: string
+                    url: string
+                    host: string
+                    displayName: string
+                    github: string
+                    profileImage: string
+                  comment: string
+                  contentType: text/markdown
+                  published: datetime
+                  id: string
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+              examples:
+                ? ''
+                : value:
+                    type: comment
+                    author:
+                      type: author
+                      id: string
+                      url: string
+                      host: string
+                      displayName: string
+                      github: string
+                      profileImage: string
+                    comment: string
+                    contentType: text/markdown
+                    published: datetime
+                    id: string
+          description: ''
+  /api/authors/{author_id}/posts/{post_id}/comments/{comment_id}/likes/:
+    get:
+      operationId: authors_posts_comments_likes_list
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: comment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+              examples:
+                ? ''
+                : value:
+                  - - summary: string
+                      type: Like
+                      author:
+                        type: author
+                        id: string
+                        url: string
+                        host: string
+                        displayName: string
+                        github: string
+                        profileImage: string
+                      object: string
+          description: ''
+  /api/authors/{author_id}/posts/{post_id}/image/:
+    get:
+      operationId: authors_posts_image_retrieve
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ''
+  /api/authors/{author_id}/posts/{post_id}/likes/:
+    get:
+      operationId: authors_posts_likes_list
+      parameters:
+      - in: path
+        name: author_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: post_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Local
+      - Remote
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Like'
+              examples:
+                ? ''
+                : value:
+                  - - summary: string
+                      type: Like
+                      author:
+                        type: author
+                        id: string
+                        url: string
+                        host: string
+                        displayName: string
+                        github: string
+                        profileImage: string
+                      object: string
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        url:
+          type: string
+          readOnly: true
+        host:
+          type: string
+        displayName:
+          type: string
+        github:
+          type: string
+        profileImage:
+          type: string
+          readOnly: true
+      required:
+      - displayName
+      - github
+      - host
+      - id
+      - profileImage
+      - type
+      - url
+    Comment:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        author:
+          $ref: '#/components/schemas/Author'
+        comment:
+          type: string
+        contentType:
+          type: string
+          readOnly: true
+        published:
+          type: string
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+      required:
+      - author
+      - comment
+      - contentType
+      - id
+      - published
+      - type
+    Follow:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        summary:
+          type: string
+          readOnly: true
+        actor:
+          type: string
+          readOnly: true
+        object:
+          type: string
+          readOnly: true
+      required:
+      - actor
+      - object
+      - summary
+      - type
+    Like:
+      type: object
+      properties:
+        summary:
+          type: string
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        object:
+          type: string
+          readOnly: true
+      required:
+      - author
+      - object
+      - summary
+      - type
+    Post:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        title:
+          type: string
+        id:
+          type: string
+          readOnly: true
+        source:
+          type: string
+          readOnly: true
+        origin:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        contentType:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+          readOnly: true
+        count:
+          type: string
+          readOnly: true
+        published:
+          type: string
+          readOnly: true
+        visibility:
+          type: string
+          readOnly: true
+      required:
+      - author
+      - content
+      - contentType
+      - count
+      - description
+      - id
+      - origin
+      - published
+      - source
+      - title
+      - type
+      - visibility
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
